@@ -55,9 +55,6 @@
             margin-top: 15px;
             border-radius: 5px;
         }
-        .datos-bancarios p {
-            margin: 5px 0;
-        }
         .whatsapp-link {
             display: block;
             padding: 15px 20px;
@@ -70,6 +67,42 @@
             text-align: center;
             font-weight: bold;
         }
+        .nota-advertencia {
+            font-size: 0.9em;
+            text-align: center;
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border: 1px solid #faebcc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        /* --- NUEVOS ESTILOS PARA LA FUNCIÓN DE COPIAR --- */
+        .copy-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        .copy-line p {
+            margin: 0;
+            word-break: break-all;
+        }
+        .copy-button {
+            padding: 6px 12px;
+            font-size: 0.9em;
+            background-color: #e9ecef;
+            color: #495057;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+        }
+        .copy-button:hover {
+            background-color: #dde1e4;
+        }
     </style>
 </head>
 <body>
@@ -77,30 +110,76 @@
         <h1>Elige tu Método de Pago</h1>
         <p style="text-align: center;">Tienes dos opciones para comprar tus quinielas. ¡Elige la que más te convenga!</p>
 
+        <!-- OPCIÓN 1: PAGO MANUAL -->
         <div class="opcion-pago">
-            <h3>Opción 1: Pago Automático con Tarjeta (Recomendado)</h3>
+            <h3>Opción 1: Pago Manual por Transferencia (Sin Comisión)</h3>
+            <p>Paga el costo exacto de $30.00 por quiniela. Recibirás tu código por WhatsApp una vez que confirmemos tu pago de forma manual.</p>
+            <div class="datos-bancarios">
+                
+                <div class="copy-line">
+                    <p><strong>Beneficiario:</strong> <span id="beneficiario">EDUARDO GUADALUPE DE LA FUENTE HERNANDEZ</span></p>
+                    <button class="copy-button" onclick="copyToClipboard('beneficiario', this)">Copiar</button>
+                </div>
+
+                <div class="copy-line">
+                    <p><strong>CLABE:</strong> <span id="clabe">044580256026457475</span></p>
+                    <button class="copy-button" onclick="copyToClipboard('clabe', this)">Copiar</button>
+                </div>
+                
+                <div class="copy-line">
+                    <p><strong>Banco:</strong> Scotiabank</p>
+                </div>
+
+            </div>
+            <p><strong>Instrucción:</strong> Una vez hecha la transferencia, haz clic en el siguiente botón para enviar tu comprobante.</p>
+            
+            <a href="https://wa.me/528112345678?text=Hola,%20te%20envío%20mi%20comprobante%20de%20pago%20para%20la%20quiniela." class="whatsapp-link" target="_blank">
+                📲 Enviar Comprobante por WhatsApp
+            </a>
+        </div>
+        
+        <!-- OPCIÓN 2: PAGO AUTOMÁTICO -->
+        <div class="opcion-pago">
+            <h3>Opción 2: Pago Automático con Tarjeta</h3>
             <p>Recibe tu código al instante por correo electrónico. El precio ya incluye la comisión por el servicio de pago automático.</p>
             <a href="https://mpago.la/2hKDy8L" class="boton-pago-mp" target="_blank">Pagar 1 Quiniela ($36.00 MXN)</a>
             <a href="https://mpago.la/2ADuDHQ" class="boton-pago-mp" target="_blank">Pagar 2 Quinielas ($67.00 MXN)</a>
             <a href="https://mpago.la/1Q3gRZb" class="boton-pago-mp" target="_blank">Pagar 3 Quinielas ($98.00 MXN)</a>
             <a href="https://mpago.la/1ewVWzm" class="boton-pago-mp" target="_blank">Pagar 4 Quinielas ($128.00 MXN)</a>
             <a href="https://mpago.la/26YcfMt" class="boton-pago-mp" target="_blank">Pagar 5 Quinielas ($160.00 MXN)</a>
-        </div>
-
-        <div class="opcion-pago">
-            <h3>Opción 2: Pago Manual por Transferencia (Sin Comisión)</h3>
-            <p>Paga el costo exacto de $30.00 por quiniela. Recibirás tu código por WhatsApp una vez que confirmemos tu pago de forma manual.</p>
-            <div class="datos-bancarios">
-                <p><strong>Beneficiario:</strong> [Aquí pones tu Nombre Completo]</p>
-                <p><strong>CLABE Interbancaria:</strong> [Aquí pones tu CLABE de 18 dígitos]</p>
-                <p><strong>Banco:</strong> [Aquí pones el nombre de tu Banco]</p>
+            
+            <div class="nota-advertencia">
+                <strong>¡Atención!</strong> En el celular, es muy probable que Mercado Pago te pida <strong>iniciar sesión o crear una cuenta</strong>.
             </div>
-            <p><strong>Instrucción:</strong> Una vez hecha la transferencia, haz clic en el siguiente botón para enviar tu comprobante.</p>
-            <a href="https://wa.me/528131071919?text=Hola,%20te%20envío%20mi%20comprobante%20de%20pago%20para%20la%20quiniela." class="whatsapp-link" target="_blank">
-                📲 Enviar Comprobante por WhatsApp
-            </a>
         </div>
-
     </div>
+
+    <!-- --- NUEVO SCRIPT PARA LA FUNCIÓN DE COPIAR --- -->
+    <script>
+        function copyToClipboard(elementId, buttonElement) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            
+            // Usamos document.execCommand para mayor compatibilidad
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                // Feedback visual para el usuario
+                const originalText = buttonElement.textContent;
+                buttonElement.textContent = '¡Copiado!';
+                setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                }, 2000); // El texto vuelve a la normalidad después de 2 segundos
+            } catch (err) {
+                console.error('No se pudo copiar el texto: ', err);
+                alert('No se pudo copiar el texto. Por favor, hazlo manualmente.');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
 </body>
 </html>
